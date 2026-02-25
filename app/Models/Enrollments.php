@@ -16,12 +16,9 @@ class Enrollments extends Model
     ];
 
     public function student(){
-        return $this->belongsTo (Users::class, 'student_id');
+        return $this->belongsTo (User::class, 'student_id');
     }
     public function course(){
         return $this->belongsTo (Courses::class, 'course_id');
     }
-    public function semester(){
-        return $this->belongsTo (Semesters::class, 'semester_id');  
-}
 }

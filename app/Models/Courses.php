@@ -23,4 +23,10 @@ class Courses extends Model
     {
         return $this->hasMany(Enrollments::class, 'course_id');
     }
+    public function students()
+    {
+        return $this->belongsToMany(User::class,'enrollments')
+                    ->withPivot('status')
+                    ->withTimestamps();
+    }
 }

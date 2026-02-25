@@ -13,13 +13,13 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
-            FacadesRoute::middleware(['web', 'auth'])
-                ->group(base_path('routes/authorization.php'));
+            FacadesRoute::middleware(['web'])
+                ->group(base_path('routes/auth.php'));
         }
     )
-    ->withMiddleware(function (Middleware $middleware): void {
+    ->withMiddleware(function ($middleware) {
         $middleware->alias([
-            'lecturer' => EnsureUserIsLecturer::class,
+            'role' => \App\Http\Middleware\RoleMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

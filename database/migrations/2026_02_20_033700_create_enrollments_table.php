@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id()->primary();
             $table->foreignId('student_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('course_id')->references('id')->on('courses')->cascadeOnDelete();
-            $table->foreignId('semester_id')->references('id')->on('semesters')->cascadeOnDelete();
             $table->enum('status', ['enrolled', 'dropped'])->default('enrolled');
             $table->timestamps();
         });
