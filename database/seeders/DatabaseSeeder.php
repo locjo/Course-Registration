@@ -13,13 +13,13 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
+   public function run(): void
     {
-        User::factory(1000)->create();
+        $this->call([
+            DepartmentSeeder::class, // chỉ seed 1 lần tại đây
+        ]);
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory(50)->create(); // users lấy department_id từ code đã có
     }
+    
 }

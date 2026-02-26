@@ -11,12 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departments', function (Blueprint $table) {
-            $table->id()->primary();
-            $table->string('code')->unique();
-            $table->string('name')->unique();
-            $table->timestamps();
-        });
+        Schema::create('session', function (Blueprint $table) {
+    $table->id()->primary();
+
+    $table->foreignId('course_id')
+          ->constrained()
+          ->cascadeOnDelete();
+
+    $table->date('session_date');
+    $table->integer('session_number');
+
+    $table->timestamps();
+});
     }
 
     /**
@@ -24,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('session');
     }
 };

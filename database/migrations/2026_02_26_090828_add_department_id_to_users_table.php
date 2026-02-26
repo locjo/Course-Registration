@@ -11,19 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sessions', function (Blueprint $table) {
-
-            $table->id()->primary();
-
-            $table->foreignId('course_id')
-                ->constrained()
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('department_id');
+            $table->foreign('department_id')
+                ->references('code')
+                ->on('departments')
                 ->cascadeOnDelete();
-
-            $table->date('session_date');
-
-            $table->integer('session_number'); // buổi 1,2,3...
-
-            $table->timestamps();
         });
     }
 
@@ -32,6 +25,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sessions');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
 });
 require __DIR__.'/auth.php';
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('departments', DepartmentController::class);
+});

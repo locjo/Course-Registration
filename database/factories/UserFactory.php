@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -30,6 +31,9 @@ class UserFactory extends Factory
             'role' => fake()->randomElement(['lecturer', 'student']),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+
+             // FK
+          'department_id' => Department::pluck('code')->random(),
         ];
     }
 

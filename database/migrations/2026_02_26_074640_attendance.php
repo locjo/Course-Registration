@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id()->primary();
             
             $table->foreignId('session_id')
-                ->constrained()
+                ->constrained('session')
                 ->cascadeOnDelete();
 
             $table->foreignId('student_id')
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendaces');
+        Schema::dropIfExists('attendances');
     }
 };
