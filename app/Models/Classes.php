@@ -8,9 +8,8 @@ class Classes extends Model
 {
     protected $fillable = [
         'id',
-        'course_id',
-        'semester_id',
-        'class_name',
+        'code',
+        'name',
     ];
 
     public function course()

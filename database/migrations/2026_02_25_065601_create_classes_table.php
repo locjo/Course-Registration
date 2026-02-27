@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->id()->primary();
             $table->string('name');
-            $table->foreignId('department_id')->references('id')->on('departments')->cascadeOnDelete();
+            $table->string('code')->unique();
             $table->timestamps();
         });
     }

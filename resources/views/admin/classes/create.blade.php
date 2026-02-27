@@ -1,27 +1,22 @@
 @include('layouts.components.header')
 @include('layouts.components.sidebar')
 <div class="content-wrapper">
-
 <div class="card">
-    <div class="card-header">Sửa khoa</div>
+    <div class="card-header">Thêm lớp học</div>
 
     <div class="card-body">
-        <form method="POST"
-              action="{{ route('admin.departments.update',$department->id) }}">
+        <form method="POST" action="{{ route('admin.classes.store') }}">
             @csrf
-            @method('PUT')
 
-            <label>Mã khoa</label>
+            <label>Mã lớp học</label>
             <input type="text" name="code"
-                   value="{{ $department->code }}"
                    class="form-control mb-2">
 
-            <label>Tên khoa</label>
+            <label>Tên lớp học</label>
             <input type="text" name="name"
-                   value="{{ $department->name }}"
                    class="form-control mb-2">
 
-            <button class="btn btn-primary">Cập nhật</button>
+            <button class="btn btn-success">Lưu</button>
         </form>
     </div>
 </div>

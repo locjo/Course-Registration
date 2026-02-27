@@ -52,7 +52,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.classes.index') }}" class="nav-link">
               <i class="nav-icon fas fa-th-large"></i>
               <p>
                 Lớp
@@ -60,7 +60,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.students.index') }}" class="nav-link">
               <i class="nav-icon fas fa-folder-open"></i>
               <p>
                 Quản lí sinh viên

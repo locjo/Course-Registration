@@ -16,9 +16,9 @@ class DepartmentController extends Controller
 
         $departments = Department::when($keyword, function ($query) use ($keyword) {
             $query->where('name', 'like', "%$keyword%")
-                ->orWhere('id', 'like', "%$keyword%");
+                ->orWhere('id', 'like', "%$keyword%")
+                ->orWhere('code', 'like', "%$keyword%");
         })
-        ->latest()
         ->paginate(10);
         return view('admin.departments.index', compact('departments'));
     }
@@ -45,8 +45,6 @@ class DepartmentController extends Controller
             ->with('success', 'Thêm khoa thành công');
     }
 
-    
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -67,7 +65,7 @@ class DepartmentController extends Controller
         Department::findOrFail($id)
             ->update($request->all());
         
-        return redirect()->route('departments.index')
+        return redirect()->route('admin.departments.index')
             ->with('success', 'Cập nhật khoa thành công');
     }
 

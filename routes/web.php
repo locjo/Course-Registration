@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ClassController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,4 +31,12 @@ require __DIR__.'/auth.php';
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('departments', DepartmentController::class);
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('classes', ClassController::class);
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('students', StudentController::class);
 });

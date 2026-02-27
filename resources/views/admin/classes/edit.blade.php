@@ -3,22 +3,22 @@
 <div class="content-wrapper">
 
 <div class="card">
-    <div class="card-header">Sửa khoa</div>
+    <div class="card-header">Sửa lớp học</div>
 
     <div class="card-body">
         <form method="POST"
-              action="{{ route('admin.departments.update',$department->id) }}">
+              action="{{ route('admin.classes.update',$class->id) }}">
             @csrf
             @method('PUT')
 
-            <label>Mã khoa</label>
+            <label>Mã lớp học</label>
             <input type="text" name="code"
-                   value="{{ $department->code }}"
+                   value="{{ $class->code }}"
                    class="form-control mb-2">
 
-            <label>Tên khoa</label>
+            <label>Tên lớp học</label>
             <input type="text" name="name"
-                   value="{{ $department->name }}"
+                   value="{{ $class->name }}"
                    class="form-control mb-2">
 
             <button class="btn btn-primary">Cập nhật</button>

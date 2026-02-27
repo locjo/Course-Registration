@@ -33,7 +33,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
 
              // FK
-          'department_id' => Department::pluck('code')->random(),
+            'department_id' => Department::inRandomOrder()->value('id'),
         ];
     }
 

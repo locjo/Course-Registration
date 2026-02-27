@@ -1,7 +1,6 @@
-@extends('layouts.app')
-
-@section('content')
-
+@include('layouts.components.header')
+@include('layouts.components.sidebar')
+<div class="content-wrapper">
 <div class="card">
     <div class="card-header">Thêm khoa</div>
 
@@ -21,5 +20,5 @@
         </form>
     </div>
 </div>
-
-@endsection
+</div>
+@include('layouts.components.footer')
