@@ -3,23 +3,41 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Department;
+use Illuminate\Support\Str;
 
 class DepartmentFactory extends Factory
 {
-    protected $model = Department::class;
-
     public function definition(): array
-{
-    $departments = [
-        ['name' => 'Công nghệ thông tin', 'code' => 'CNTT'],
-        ['name' => 'Quản trị kinh doanh', 'code' => 'QTKD'],
-        ['name' => 'Kế toán', 'code' => 'KT'],
-        ['name' => 'Tài chính ngân hàng', 'code' => 'TCNH'],
-        ['name' => 'Luật', 'code' => 'LUAT'],
-        ['name' => 'Ngoại ngữ', 'code' => 'NN'],
-    ];
+    {
+        $name = fake()->unique()->randomElement([
+            'Công nghệ thông tin',
+            'Quản trị kinh doanh',
+            'Tài chính ngân hàng',
+            'Marketing',
+            'Ngôn ngữ Anh',
+            'Luật kinh tế'
+        ]);
 
-    return $this->faker->randomElement($departments);
-}
+        return [
+            'name' => $name,
+            'code' => $this->generateCode($name),
+        ];
+    }
+
+    private function generateCode(string $name): string
+    {
+        // Bỏ dấu tiếng Việt
+        $name = Str::ascii($name);
+
+        // Tách thành từng từ
+        $words = explode(' ', $name);
+
+        // Lấy chữ cái đầu mỗi từ
+        $code = '';
+        foreach ($words as $word) {
+            $code .= strtoupper(substr($word, 0, 1));
+        }
+
+        return $code;
+    }
 }

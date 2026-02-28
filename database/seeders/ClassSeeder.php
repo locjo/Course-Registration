@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Department;
+use App\Models\Classes;
 
-class DepartmentSeeder extends Seeder
+class ClassesSeeder extends Seeder
 {
     public function run(): void
     {
-        Department::factory(5)->create();
+        Classes::factory(10)->create();
     }
 }

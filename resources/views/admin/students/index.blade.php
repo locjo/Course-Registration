@@ -5,9 +5,19 @@
 
     <div class="container mt-4">
 
+
     <!-- ===== Bộ lọc ===== -->
     <div class="card mb-3">
         <div class="card-body">
+            <div class="content-header">
+                <div class="container-fluid d-flex justify-content-between">
+                    <h4 class="m-0">Danh sách sinh viên</h4>
+
+                    <a href="{{ route('admin.students.create') }}" class="btn btn-success">
+                        <i class="fas fa-plus-circle"></i> Thêm mới
+                    </a>
+                </div>
+            </div>
 
             <form method="GET" action="">
                 <div class="row mb-3">
@@ -46,6 +56,7 @@
                             Export Excel
                         </button>
                     </div>
+
                 </div>
 
                 <div class="row">
@@ -70,19 +81,11 @@
                     <div class="col-md-3">
                         <input type="date" name="to_date" class="form-control">
                     </div>
-
-                    <!-- Chọn lớp -->
                     <div class="col-md-3">
-                        <select name="class_id" class="form-select">
-                            <option value="">Chọn lớp</option>
-                            @foreach($classes as $class)
-                                <option value="{{ $class->id }}">
-                                    {{ $class->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <button class="btn btn-info w-100">
+                            Import Excel
+                        </button>
                     </div>
-
                 </div>
 
                 <div class="mt-3">
@@ -108,7 +111,6 @@
                         <th>STT</th>
                         <th>Mã sinh viên</th>
                         <th>Tên sinh viên</th>
-                        <th>Ngày sinh</th>
                         <th>Lớp</th>
                         <th>Khoa</th>
                         <th width="120">Thao tác</th>
@@ -116,18 +118,37 @@
                 </thead>
 
                 <tbody>
-                    @foreach($students as $key => $student)
+                    @foreach($students as  $student)
                     <tr class="text-center">
-                        <td>{{ $key+1 }}</td>
+                        <td>{{ $student->id }}</td>
                         <td>{{ $student->code }}</td>
                         <td>{{ $student->name }}</td>
-                        <td>{{ $student->birthday }}</td>
                         <td>{{ $student->class->name }}</td>
                         <td>{{ $student->department->name }}</td>
                         <td>
-                            <a href="" class="btn btn-sm btn-info">👁</a>
-                            <a href="" class="btn btn-sm btn-warning">✏</a>
-                            <a href="" class="btn btn-sm btn-danger">🗑</a>
+                            <a href="{{ route('admin.students.show',$student->id) }}"
+                                class="btn btn-info btn-sm">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ route('admin.students.edit',$student->id) }}"
+                                class="btn btn-info btn-sm">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <form action="{{ route('admin.students.destroy',$student->id) }}"
+                                    method="POST"
+                                    style="display:inline-block">
+
+                                @csrf
+                                @method('DELETE')
+
+                                <button class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Xóa sinh viên này?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+
+                            </form>
+
                         </td>
                     </tr>
                     @endforeach
