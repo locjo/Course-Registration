@@ -27,4 +27,13 @@ class ProfileUpdateRequest extends FormRequest
             ],
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Tên không được để trống',
+            'email.required' => 'Email không được để trống',
+            'email.email' => 'Email không đúng định dạng',
+            'email.unique' => 'Email đã tồn tại'
+        ];
+    }
 }

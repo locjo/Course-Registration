@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClassRequest;
 use App\Models\Classes;
 use Illuminate\Http\Request;
 
@@ -31,14 +32,9 @@ class ClassController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ClassRequest $request)
     {
-        $request->validate([
-            'code' => 'required|unique:classes',
-            'name' => 'required'
-        ]);
-
-        Classes::create($request->all());
+        Classes::create($request->validated());
 
         return redirect()->route('admin.classes.index')
             ->with('success', 'Thêm lớp học thành công');
@@ -55,14 +51,11 @@ class ClassController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ClassRequest $request, string $id)
     {
-        $request->validate([
-            'code' => 'required|unique:classes,code,' . $id,
-            'name' => 'required'
-        ]);
-        Classes::findOrFail($id)
-            ->update($request->all());
+        
+        $class = Classes::findOrFail($id);
+        $class->update($request->validated());
         
         return redirect()->route('admin.classes.index')
             ->with('success', 'Cập nhật lớp học thành công');

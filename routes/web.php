@@ -40,3 +40,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('students', StudentController::class);
 });
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('courses', CourseController::class);
+});

@@ -12,19 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('student_code')->unique(); // Mã sinh viên, duy nhất
-            $table->string('course_year')->unique();
+            $table->integer('student_code')->unique()->nullable(true); // Mã sinh viên, duy nhất
+            $table->string('course_year')->unique()->nullable(true); // Niên khóa, duy nhất
 
             // Ảnh
             $table->string('photo')->nullable(); // lưu path ảnh
 
             // Cá nhân
-            $table->enum('gender', ['Nam', 'Nữ', 'Khác']);
-            $table->date('birthday');
+            $table->enum('gender', ['Nam', 'Nữ', 'Khác'])->nullable();
+            $table->date('birthday')->nullable();
 
             // Niên khóa (VD: 2022-2026)
-            $table->string('academic_year');
-
+            $table->string('academic_year')->nullable();
             // Thông tin địa phương
             $table->string('place_of_birth')->nullable();
             $table->string('permanent_address')->nullable();
@@ -34,7 +33,6 @@ return new class extends Migration
 
             // Liên hệ
             $table->string('phone')->nullable();
-            $table->string('email')->nullable();
         });
     }
 

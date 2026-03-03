@@ -2,40 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CourseRequest;
+use App\Http\Requests\DepartmentRequest;
+use App\Models\Courses;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
-{
+{   
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('courses.index');
-    }
+        $keyword = $request->keyword;
 
-    /**
-     * Show the form for creating a new resource.
-     */
+        $courses = Courses::when($keyword, function ($query) use ($keyword) {
+            $query->where('name', 'like', "%$keyword%")
+                ->orWhere('id', 'like', "%$keyword%")
+                ->orWhere('code', 'like', "%$keyword%");
+        })
+        ->paginate(10);
+        return view('admin.courses.index', compact('courses'));
+    }
+    
     public function create()
     {
-        //
+        return view('admin.courses.create');
     }
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        Courses::create($request->validated());
+
+        return redirect()->route('admin.courses.index')
+            ->with('success', 'Thêm môn học thành công');
     }
 
     /**
@@ -43,15 +49,19 @@ class CourseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $course = Courses::findOrFail($id);
+        return view('admin.courses.edit', compact('course'));   
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CourseRequest $request, string $id)
     {
-        //
+        
+        $course = Courses::findOrFail($id);
+        $course->update($request->validated());
+        return redirect()->route('admin.courses.index')
+            ->with('success', 'Cập nhật môn học thành công');
     }
 
     /**
@@ -59,6 +69,9 @@ class CourseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Courses::findOrFail($id)->delete();
+
+        return redirect()->route('admin.courses.index')
+            ->with('success', 'Xóa môn học thành công');
     }
 }

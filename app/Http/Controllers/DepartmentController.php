@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
 use Illuminate\Http\Request;
 
@@ -32,14 +33,10 @@ class DepartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
-        $request->validate([
-            'code' => 'required|unique:departments',
-            'name' => 'required'
-        ]);
 
-        Department::create($request->all());
+        Department::create($request->validated());
 
         return redirect()->route('admin.departments.index')
             ->with('success', 'Thêm khoa thành công');
@@ -56,15 +53,11 @@ class DepartmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DepartmentRequest $request, string $id)
     {
-        $request->validate([
-            'code' => 'required|unique:departments,code,' . $id,
-            'name' => 'required'
-        ]);
-        Department::findOrFail($id)
-            ->update($request->all());
         
+        $department = Department::findOrFail($id);
+        $department->update($request->validated());
         return redirect()->route('admin.departments.index')
             ->with('success', 'Cập nhật khoa thành công');
     }

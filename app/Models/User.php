@@ -27,7 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'role', 
     ];
 
     /**
@@ -78,4 +78,8 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class, 'department_id');
     }
     
+    public function student()
+    {
+        return $this->hasOne(Students::class);
+    }
 }

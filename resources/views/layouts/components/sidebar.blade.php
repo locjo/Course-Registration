@@ -68,7 +68,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.courses.index') }}" class="nav-link">
               <i class="nav-icon fas fa-folder-open"></i>
               <p>
                 Quản lí môn học

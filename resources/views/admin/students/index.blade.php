@@ -121,7 +121,7 @@
                     @foreach($students as  $student)
                     <tr class="text-center">
                         <td>{{ $student->id }}</td>
-                        <td>{{ $student->code }}</td>
+                        <td>{{ $student->student_code }}</td>
                         <td>{{ $student->name }}</td>
                         <td>{{ $student->class->name }}</td>
                         <td>{{ $student->department->name }}</td>

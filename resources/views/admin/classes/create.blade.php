@@ -7,15 +7,20 @@
     <div class="card-body">
         <form method="POST" action="{{ route('admin.classes.store') }}">
             @csrf
-
+            
             <label>Mã lớp học</label>
             <input type="text" name="code"
                    class="form-control mb-2">
-
+            @error('code')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+            
             <label>Tên lớp học</label>
             <input type="text" name="name"
                    class="form-control mb-2">
-
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
             <button class="btn btn-success">Lưu</button>
         </form>
     </div>
