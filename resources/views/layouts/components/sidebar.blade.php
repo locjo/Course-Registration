@@ -67,6 +67,14 @@
               </p>
             </a>
           </li>
+           <li class="nav-item">
+            <a href="{{ route('admin.lecturers.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-folder-open"></i>
+              <p>
+                Quản lí giảng viên
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="{{ route('admin.courses.index') }}" class="nav-link">
               <i class="nav-icon fas fa-folder-open"></i>
@@ -95,7 +103,7 @@
             <a href="pages/calendar.html" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Thành viên
+                Thông báo
               </p>
             </a>
           </li>
