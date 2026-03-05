@@ -7,6 +7,13 @@
     <div class="card-body">
         <form method="POST" action="{{ route('admin.courses.store') }}">
             @csrf
+               @if ($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <div>{{ $error }}</div>
+                                @endforeach
+                            </div>
+                        @endif
 
             <label>Mã môn học</label>
             <input type="text" name="code"
@@ -20,6 +27,19 @@
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
+            <label>Ngày bắt đầu</label>
+            <input type="date" name="start_date"
+                   class="form-control mb-2">
+            @error('start_date')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+                <label>Ngày kết thúc</label>
+                <input type="date" name="end_date"
+                       class="form-control mb-2">
+                @error('end_date')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+                
                 <label>Số tín</label>
                 <input type="number" name="credits"
                        class="form-control mb-2">
@@ -27,15 +47,20 @@
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
                 <label>Slot</label>
-                <input type="number" name="slot"
+                <input type="number" name="capacity"
                         class="form-control mb-2">
-                @error('slot')
+                @error('capacity')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
                 <label>Giảng viên</label>
-                <input type="text" name="instructor"
+                <select name="lecturer_id"
                         class="form-control mb-2">
-                @error('instructor')
+                    <option value="">Chọn giảng viên</option>
+                    @foreach($lecturers as $lecturer)
+                        <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
+                    @endforeach
+                </select>
+                @error('lecturer_id')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             <button class="btn btn-success">Lưu</button>

@@ -6,6 +6,7 @@ use App\Http\Requests\CourseRequest;
 use App\Http\Requests\DepartmentRequest;
 use App\Models\Courses;
 use App\Models\Department;
+use App\Models\Lecturers;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -17,18 +18,21 @@ class CourseController extends Controller
     {
         $keyword = $request->keyword;
 
+        $lecturers = Lecturers::orderBy('name')->get();
         $courses = Courses::when($keyword, function ($query) use ($keyword) {
             $query->where('name', 'like', "%$keyword%")
                 ->orWhere('id', 'like', "%$keyword%")
                 ->orWhere('code', 'like', "%$keyword%");
-        })
+        }
+        )
         ->paginate(10);
-        return view('admin.courses.index', compact('courses'));
+        return view('admin.courses.index', compact('courses', 'lecturers'));
     }
     
     public function create()
     {
-        return view('admin.courses.create');
+        $lecturers = Lecturers::orderBy('name')->get();
+        return view('admin.courses.create', compact('lecturers'));
     }
 
 

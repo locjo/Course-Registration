@@ -84,42 +84,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-folder-open"></i>
-              <p>
-                Quản lí điểm
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-folder-open"></i>
-              <p>
-                Quản lí điểm danh
-              </p>
-            </a>
-        </li>
-          <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Thông báo
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
-              <i class="nav-icon fas fa-user-tag"></i>
-              <p>
-                Vai trò thành viên
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/kanban.html" class="nav-link">
-              <i class="nav-icon fas fa-file-invoice"></i>
-              <p>
-                Bài viết điều khoản
               </p>
             </a>
           </li>

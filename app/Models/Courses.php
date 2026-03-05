@@ -17,7 +17,7 @@ class Courses extends Model
 
     public function lecturer()
     {
-        return $this->belongsTo(User::class, 'lecturer_id');
+        return $this->belongsTo(Lecturers::class, 'lecturer_id');
     }
 
     public function enrollments()
