@@ -36,7 +36,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+            <a href="{{route('admin.dashboard')}}" class="nav-link active">
              <i class="nav-icon fas fa-house-user"></i>
               <p>
                 Trang chủ
@@ -84,11 +84,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="{{ route('admin.notifications.index') }}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Thông báo
               </p>
             </a>
           </li>
+          
   </aside>
+  

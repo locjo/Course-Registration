@@ -1,5 +1,5 @@
 @include('layouts.components.header')
-@include('layouts.components.sidebar')
+@include('admin.components.sidebar')
 <div class="content-wrapper">
     <div class="container-fluid">
         <div class="card shadow">

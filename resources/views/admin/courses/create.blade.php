@@ -1,5 +1,5 @@
 @include('layouts.components.header')
-@include('layouts.components.sidebar')
+@include('admin.components.sidebar')
 <div class="content-wrapper">
 <div class="card">
     <div class="card-header">Thêm môn học</div>
@@ -27,19 +27,6 @@
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-            <label>Ngày bắt đầu</label>
-            <input type="date" name="start_date"
-                   class="form-control mb-2">
-            @error('start_date')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-                <label>Ngày kết thúc</label>
-                <input type="date" name="end_date"
-                       class="form-control mb-2">
-                @error('end_date')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-                
                 <label>Số tín</label>
                 <input type="number" name="credits"
                        class="form-control mb-2">

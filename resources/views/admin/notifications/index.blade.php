@@ -6,9 +6,9 @@
     {{-- CONTENT HEADER --}}
     <div class="content-header">
         <div class="container-fluid d-flex justify-content-between">
-            <h4 class="m-0">Danh sách khoa</h4>
+            <h4 class="m-0">Danh sách thông báo</h4>
 
-            <a href="{{ route('admin.departments.create') }}" class="btn btn-success">
+            <a href="{{ route('admin.notifications.create') }}" class="btn btn-success">
                 <i class="fas fa-plus-circle"></i> Thêm mới
             </a>
         </div>
@@ -29,7 +29,7 @@
                                name="keyword"
                                value="{{ request('keyword') }}"
                                class="form-control mr-2"
-                               placeholder="Tìm tên khoa hoặc mã...">
+                               placeholder="Tìm tiêu đề hoặc nội dung...">
 
                         <button class="btn btn-info">
                             <i class="fas fa-search"></i> Tìm kiếm
@@ -43,28 +43,34 @@
                         <thead class="bg-light">
                         <tr>
                             <th width="80">ID</th>
-                            <th>Mã khoa</th>
-                            <th>Tên khoa</th>
+                            <th>Ảnh</th>
+                            <th>Tiêu đề</th>
+                            <th>Nội dung</th>
                             <th width="120">Thao tác</th>
                         </tr>
                         </thead>
 
                         <tbody>
 
-                        @forelse($departments as $department)
+                        @forelse($notifications as $notification)
                             <tr>
-                                <td>{{ $department->id }}</td>
-                                <td>{{ $department->code }}</td>
-                                <td>{{ $department->name }}</td>
+                                <td>{{ $notification->id }}</td>
+                                <td>
+                                    @if($notification->photo)
+                                        <img src="{{ asset('storage/'.$notification->photo) }}" width="100">
+                                    @endif
+                                </td>
+                                <td>{{ $notification->title }}</td>
+                                <td>{{ $notification->content }}</td>
 
                                 <td>
 
-                                    <a href="{{ route('admin.departments.edit',$department->id) }}"
+                                    <a href="{{ route('admin.notifications.edit',$notification->id) }}"
                                        class="btn btn-info btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
 
-                                    <form action="{{ route('admin.departments.destroy',$department->id) }}"
+                                    <form action="{{ route('admin.notifications.destroy',$notification->id) }}"
                                           method="POST"
                                           style="display:inline-block">
 
@@ -72,7 +78,7 @@
                                         @method('DELETE')
 
                                         <button class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Xóa khoa này?')">
+                                                onclick="return confirm('Xóa thông báo này?')">
                                             <i class="fas fa-trash"></i>
                                         </button>
 
@@ -94,7 +100,7 @@
 
                     {{-- PAGINATION --}}
                     <div class="mt-2">
-                        {{ $departments->appends(request()->all())->links() }}
+                        {{ $notifications->appends(request()->all())->links() }}
                     </div>
 
                 </div>

@@ -18,4 +18,8 @@ class Classes extends Model
     {
         return $this->belongsTo(Courses::class, 'course_id');
     }
+    public function students()
+    {
+        return $this->hasMany(Students::class,'class_id');
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -9,7 +10,9 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LecturerController;
+use App\Http\Controllers\LecturerDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -62,9 +65,7 @@ Route::middleware(['auth', 'role:lecturer'])
     ->prefix('lecturer')
     ->name('lecturer.')
     ->group(function () {
-        Route::get('/dashboard', function () {
-            return view('lecturer.dashboard');
-        })->name('dashboard');
+        Route::get('dashboard', [LecturerDashboardController::class, 'index'])->name('dashboard');
     });
 Route::middleware(['auth', 'role:student'])
     ->prefix('student')
@@ -79,7 +80,5 @@ Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     });

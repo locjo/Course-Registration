@@ -27,7 +27,6 @@ class StudentController extends Controller
             if ($request->student_code) {
                 $query->where('code','like','%'.$request->student_code.'%');
             }
-
             // ===== Filter tên sinh viên =====
             if ($request->student_name) {
                 $query->where('name','like','%'.$request->student_name.'%');

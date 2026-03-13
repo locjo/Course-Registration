@@ -1,10 +1,16 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LecturerController;
+use App\Http\Controllers\LecturerDashboardController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,3 +55,27 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('lecturers', LecturerController::class);
 });
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('notifications', NotificationsController::class);
+});
+
+Route::prefix('admin')->middleware('admin')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+});
+
+Route::prefix('lecturer')->middleware('lecturer')->group(function(){
+    Route::get('/dashboard', [LecturerDashboardController::class, 'index'])->name('lecturer.dashboard');
+});
+
+Route::prefix('lecturer')->name('lecturer.')->group(function () {
+
+    Route::resource('sessions', SessionController::class);
+
+
+});
+
+Route::get('/attendance/scan/{token}', [AttendanceController::class,'scan'])
+    ->name('attendance.scan');
+
+
