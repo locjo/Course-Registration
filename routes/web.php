@@ -10,6 +10,7 @@ use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\LecturerDashboardController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SectionClassController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +65,10 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
 
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('section_classes', SectionClassController::class);
+});
+
 Route::prefix('lecturer')->middleware('lecturer')->group(function(){
     Route::get('/dashboard', [LecturerDashboardController::class, 'index'])->name('lecturer.dashboard');
 });
@@ -71,11 +76,12 @@ Route::prefix('lecturer')->middleware('lecturer')->group(function(){
 Route::prefix('lecturer')->name('lecturer.')->group(function () {
 
     Route::resource('sessions', SessionController::class);
-
+    Route::get('/attendances/index/{session}', [AttendanceController::class,'index'])
+        ->name('attendances.index');
+    Route::post('/attendances/store', [AttendanceController::class,'store'])
+        ->name('attendances.store');
 
 });
 
-Route::get('/attendance/scan/{token}', [AttendanceController::class,'scan'])
-    ->name('attendance.scan');
 
 

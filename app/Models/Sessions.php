@@ -10,12 +10,10 @@ class Sessions extends Model
     use HasFactory;
     protected $table = 'session';
     protected $fillable = [
-        'course_id',
-        'class_id',
+
         'session_date',
-        'qr_token',
-        'qr_expired_at',
-        'lecturer_id'
+        'section_class_id',
+   
     ];
 
     public function class()
@@ -36,5 +34,15 @@ class Sessions extends Model
     public function lecturer()
     {
         return $this->belongsTo(Lecturers::class);
+    }
+    
+    public function course()
+    {
+        return $this->belongsTo(Courses::class);
+    }
+
+    public function section_class()
+    {
+        return $this->belongsTo(SectionClass::class, 'section_class_id');
     }
 }

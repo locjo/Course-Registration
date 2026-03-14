@@ -9,6 +9,7 @@ class Attendances extends Model
     protected $fillable = [
         'id',
         'session_id',
+        'student_id',
         'status',
     ];
 

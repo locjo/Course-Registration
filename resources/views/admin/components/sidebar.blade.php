@@ -84,6 +84,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{ route('admin.section_classes.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Quản lí lớp học phần
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ route('admin.notifications.index') }}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>

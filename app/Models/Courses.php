@@ -30,4 +30,13 @@ class Courses extends Model
                     ->withPivot('status')
                     ->withTimestamps();
     }
+
+    public function session()
+    {
+        return $this->hasMany(Sessions::class, 'session_id');
+    }
+    public function sectionClasses()
+    {
+        return $this->hasMany(SectionClass::class);
+    }
 }

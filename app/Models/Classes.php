@@ -14,7 +14,7 @@ class Classes extends Model
         'name',
     ];
 
-    public function course()
+    public function courses()
     {
         return $this->belongsTo(Courses::class, 'course_id');
     }

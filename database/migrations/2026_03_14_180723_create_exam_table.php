@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('session', function (Blueprint $table) {
-            $table->foreignId('class_id')->references('id')->on('classes')->onDelete('cascade');
+        Schema::create('exam', function (Blueprint $table) {
+            $table->id();
+            $table->string('exam_title');
+            $table->time('time_limit');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('session', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('exam');
     }
 };

@@ -15,9 +15,7 @@ class SessionRequest extends FormRequest
     {
         return [
 
-            'course_id' => 'required|exists:courses,id',
-
-            'class_id' => 'required|exists:classes,id',
+            'section_class_id' => 'required|exists:section_classes,id',
 
             'session_date' => 'required|date',
         ];
@@ -27,8 +25,8 @@ class SessionRequest extends FormRequest
     {
         return [
 
-            'course_id.required' => 'Vui lòng chọn môn học',
-            'course_id.exists' => 'Môn học không tồn tại',
+            'section_class_id.required' => 'Vui lòng chọn môn học',
+            'section_class_id.exists' => 'Môn học không tồn tại',
 
             'class_id.required' => 'Vui lòng chọn lớp',
             'class_id.exists' => 'Lớp không tồn tại',

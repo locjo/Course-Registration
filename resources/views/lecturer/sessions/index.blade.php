@@ -43,7 +43,7 @@
                         <thead class="bg-light">
                             <tr>
                                 <th>ID</th>
-                                <th>Lớp</th>
+                                <th>Mã lớp học phần</th>
                                 <th>Môn học</th>
                                 <th>Ngày điểm danh</th>
                                 <th>Số SV có mặt</th>
@@ -67,26 +67,14 @@
 
                             <td>{{ $session->id }}</td>
 
-                            <td>{{ $session->class->name ?? '' }}</td>
-
-                            <td>{{ $session->subject->name ?? '' }}</td>
+                            <td>{{ $session->section_class_id ?? '' }}</td>
 
                             <td>{{ $session->session_date }}</td>
 
                             <td>{{ $session->present_count  }}</td>
                             <td>{{ $session->absent_count }}</td>
 
-                           <td>
-                                <div id="qr-{{ $session->id }}"></div>
-
-                                    <script>
-                                    new QRCode(document.getElementById("qr-{{ $session->id }}"), {
-                                        text: "{{ route('attendance.scan',$session->qr_token) }}",
-                                        width: 90,
-                                        height: 90
-                                    });
-                                    </script>
-                            </td>
+                            <td><a href="{{route('lecturer.attendances.index',$session->id)}}">Danh sách sv</a></td>
 
                             <td>
 

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SessionRequest;
+use App\Models\Attendances;
 use App\Models\Classes;
 use App\Models\Courses;
 use App\Models\Lecturers;
+use App\Models\SectionClass;
 use App\Models\Sessions;
+use App\Models\Students;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -20,22 +23,25 @@ class SessionController extends Controller
     {
         $sessions = Sessions::with([
                 'class.students',
-                'subject',
-                'attendances'
+                'section_class',
+                'attendances',
             ])
             ->orderBy('session_date', 'desc')
             ->paginate(10);
 
         foreach ($sessions as $session) {
 
-            $present = $session->attendances
-                ->where('status', 'present')
-                ->count();
+            
 
             $totalStudents = $session->class->students->count();
 
-            $session->present_count = $present;
-            $session->absent_count = $totalStudents - $present;
+            $session->present_count = Attendances::where('session_id', $session->id)
+                    ->where('status', 'Có mặt')
+                    ->count();
+
+            $session->absent_count = Attendances::where('session_id', $session->id)
+                    ->where('status', 'Vắng')
+                    ->count();
         }
 
         return view('lecturer.sessions.index', compact('sessions'));
@@ -47,10 +53,10 @@ class SessionController extends Controller
      */
     public function create()
     {
-        $classes = Classes::all();
-        $courses = Courses::all();
+        $section_classes = SectionClass::all();
+        
 
-        return view('lecturer.sessions.create', compact('courses', 'classes'));
+        return view('lecturer.sessions.create', compact('section_classes'));
     }
 
 
@@ -62,11 +68,8 @@ class SessionController extends Controller
       
         Sessions::create([
             
-            'course_id'      => $request->course_id,
-            'class_id'       => $request->class_id,
+            'section_class_id'      => $request->section_class_id,
             'session_date'    => str_replace('T',' ',$request->session_date),
-            'qr_token'       => Str::uuid(),
-            'qr_expired_at'  => now()->addMinutes(10),
             'lecturer_id'    => auth()->id()
         ]);
 
@@ -76,8 +79,4 @@ class SessionController extends Controller
     }
 
 
-    /**
-     * Hiển thị QR Code
-     */
-   
 }

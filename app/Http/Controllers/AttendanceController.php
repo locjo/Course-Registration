@@ -2,92 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Attendance;
+
 use App\Models\Attendances;
 use App\Models\Sessions;
+use App\Models\Students;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
-
-    /**
-     * Sinh viên scan QR
-     */
-    public function scan($token)
+    public function index($session_id)
     {
+        $session = Sessions::with('course')->findOrFail($session_id);
 
-        $session = Sessions::where('qr_token',$token)->first();
+        $students = Students::where('class_id', $session->class_id)->get();
 
-        if(!$session){
-            return response()->json([
-                'message' => 'QR không hợp lệ'
-            ],404);
-        }
-
-        // kiểm tra QR hết hạn
-        if(now()->greaterThan($session->qr_expired_at)){
-            return response()->json([
-                'message' => 'QR đã hết hạn'
-            ],403);
-        }
-
-        $student = auth()->user();
-
-        // kiểm tra đã điểm danh chưa
-        $exists = Attendances::where([
-            'session_id'=>$session->id,
-            'student_id'=>$student->id
-        ])->exists();
-
-        if($exists){
-            return response()->json([
-                'message'=>'Bạn đã điểm danh rồi'
-            ]);
-        }
-
-        Attendances::create([
-            'session_id'=>$session->id,
-            'student_id'=>$student->id,
-            'status'=>'present',
-            'scanned_at'=>now()
-        ]);
-
-        return response()->json([
-            'message'=>'Điểm danh thành công'
-        ]);
+        return view('lecturer.attendances.index', compact('session','students'));
     }
 
-
-    /**
-     * Kết thúc session và đánh dấu absent
-     */
-    public function finalize($sessionId)
+    public function store(Request $request)
     {
+        foreach ($request->attendance as $student_id => $status) {
 
-        $session = Sessions::with([
-            'class.students',
-            'attendances'
-        ])->findOrFail($sessionId);
-
-        $scanned = $session->attendances
-            ->pluck('student_id')
-            ->toArray();
-
-        foreach($session->class->students as $student){
-
-            if(!in_array($student->id,$scanned)){
-
-                Attendances::create([
-                    'session_id'=>$session->id,
-                    'student_id'=>$student->id,
-                    'status'=>'absent'
-                ]);
-
-            }
+            Attendances::updateOrCreate(
+                [
+                    'session_id' => $request->session_id,
+                    'student_id' => $student_id
+                ],
+                [
+                    'status' => $status
+                ]
+            );
 
         }
 
-        return back()->with('success','Đã cập nhật sinh viên vắng');
+        return back()->with('success','Attendance saved');
     }
 
 }

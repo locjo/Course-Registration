@@ -19,15 +19,15 @@
                     @csrf
 
                     <div class="form-group">
-                    <label>Lớp</label>
+                    <label>Lớp học phần</label>
 
-                    <select name="class_id" class="form-control">
-                    <option value="">-- Chọn lớp --</option>
+                    <select name="section_class_id" class="form-control">
+                    <option value="">-- Chọn lớp học phần --</option>
 
-                    @foreach($classes as $class)
+                    @foreach($section_classes as $section_class)
 
-                    <option value="{{ $class->id }}">
-                    {{ $class->name }}
+                    <option value="{{ $section_class->id }}">
+                    {{ $section_class->section_code }}
                     </option>
 
                     @endforeach
@@ -35,26 +35,7 @@
                     </select>
                     </div>
 
-                    <div class="form-group">
-                    <label>Môn học *</label>
-
-                    <select name="course_id" class="form-control">
-
-                    <option value="">-- Chọn môn học --</option>
-
-                    @foreach($courses as $course)
-
-                    <option value="{{ $course->id }}">
-                        {{ $course->name }}
-                    </option>
-
-                    @endforeach
-
-                    </select>
-
-                    </div>
-                    
-
+                   
                     <div class="form-group">
 
                     <label>Ngày điểm danh *</label>
