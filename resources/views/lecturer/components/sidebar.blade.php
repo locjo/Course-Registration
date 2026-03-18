@@ -52,7 +52,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.classes.index') }}" class="nav-link">
+            <a href="{{ route('lecturer.exams.index') }}" class="nav-link">
               <i class="nav-icon fas fa-th-large"></i>
               <p>
                 Quản lí bài kiểm tra
@@ -60,7 +60,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.students.index') }}" class="nav-link">
+            <a href="{{ route('lecturer.score.index') }}" class="nav-link">
               <i class="nav-icon fas fa-folder-open"></i>
               <p>
                 Quản lí điểm

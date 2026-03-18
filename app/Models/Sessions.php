@@ -45,4 +45,11 @@ class Sessions extends Model
     {
         return $this->belongsTo(SectionClass::class, 'section_class_id');
     }
+
+    public function students()
+    {
+        return $this->belongsToMany(Students::class, 'attendances')
+                    ->withPivot('status', 'checkin_time')
+                    ->withTimestamps();
+    }
 }

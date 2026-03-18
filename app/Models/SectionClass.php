@@ -29,4 +29,8 @@ class SectionClass extends Model
     {
         return $this->hasMany(Sessions::class);
     }
+    public function exams()
+    {
+        return $this->hasMany(Exams::class);
+    }
 }

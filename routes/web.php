@@ -6,10 +6,12 @@ use App\Http\Controllers\ClassController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\LecturerDashboardController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SectionClassController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
@@ -83,5 +85,11 @@ Route::prefix('lecturer')->name('lecturer.')->group(function () {
 
 });
 
+Route::prefix('lecturer')->name('lecturer.')->group(function(){
 
+    Route::resource('exams', ExamController::class);
+
+    Route::resource('exams.questions', QuestionController::class);
+
+});
 

@@ -35,4 +35,15 @@ class Students extends Model
     {
         return $this->belongsTo(Department::class, 'department_id');
     }
+
+    public function sessions()
+    {
+        return $this->belongsToMany(Sessions::class, 'attendances')
+                    ->withPivot('status', 'checkin_time')
+                    ->withTimestamps();
+    }
+     public function attendances()
+    {
+        return $this->hasMany(Attendances::class);
+    }
 }

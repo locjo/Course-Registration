@@ -20,9 +20,9 @@
             <label> </label>
             <select name="course_id" class="form-control mb-2">
                 <option value="">-- Chọn môn học --</option>
-                @foreach($section_classes as $section_class)
-                    <option value="{{ $section_class->id }}">
-                        {{ $section_class->name }}
+                @foreach($courses as $course)
+                    <option value="{{ $course->id }}">
+                        {{ $course->name }}
                     </option>
                 @endforeach
             </select>
