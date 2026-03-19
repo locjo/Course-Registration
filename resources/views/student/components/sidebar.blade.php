@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{asset('adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Lecturer</span>
+      <span class="brand-text font-weight-light">Student</span>
     </a>
 
     <!-- Sidebar -->
@@ -44,10 +44,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('lecturer.sessions.index') }}" class="nav-link">
+            <a href="{{ route('student.enrollments.index') }}" class="nav-link">
               <i class="nav-icon fas fa-university"></i>
               <p>
-                Quản lí tiết học
+                Đăng ký học phần
               </p>
             </a>
           </li>
@@ -55,7 +55,7 @@
             <a href="{{ route('lecturer.exams.index') }}" class="nav-link">
               <i class="nav-icon fas fa-th-large"></i>
               <p>
-                Quản lí bài kiểm tra
+                Thời khóa biểu
               </p>
             </a>
           </li>
@@ -63,7 +63,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-folder-open"></i>
               <p>
-                Quản lí điểm
+                Bài kiểm tra
               </p>
             </a>
           </li>
@@ -71,7 +71,15 @@
             <a href="{{ route('admin.notifications.index') }}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Thông báo
+                Xem điểm
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.notifications.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Đóng học phí
               </p>
             </a>
           </li>

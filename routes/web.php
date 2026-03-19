@@ -6,6 +6,7 @@ use App\Http\Controllers\ClassController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\LecturerDashboardController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SectionClassController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -91,5 +93,13 @@ Route::prefix('lecturer')->name('lecturer.')->group(function(){
 
     Route::resource('exams.questions', QuestionController::class);
 
+    
 });
 
+
+Route::prefix('student')->name('student.')->group(function(){
+
+    Route::resource('enrollments', EnrollmentController::class);
+
+    
+});

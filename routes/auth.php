@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\LecturerDashboardController;
+use App\Http\Controllers\StudentDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -71,9 +72,7 @@ Route::middleware(['auth', 'role:student'])
     ->prefix('student')
     ->name('student.')
     ->group(function () {
-        Route::get('/dashboard', function () {
-            return view('student.dashboard');
-        })->name('dashboard');
+        Route::get('dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
     });
 
 Route::middleware(['auth', 'role:admin'])

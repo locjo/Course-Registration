@@ -8,17 +8,16 @@ use PhpParser\Builder\Use_;
 class Enrollments extends Model
 {
     protected $fillable = [
-        'id',
         'student_id',
-        'course_id',
-        'semester_id',
+        'section_class_id',
         'status',
+        'score'
     ];
 
     public function student(){
-        return $this->belongsTo (User::class, 'student_id');
+        return $this->belongsTo (Students::class, 'student_id');
     }
-    public function course(){
-        return $this->belongsTo (Courses::class, 'course_id');
+    public function section_class(){
+        return $this->belongsTo(SectionClass::class, 'section_class_id');
     }
 }

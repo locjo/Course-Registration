@@ -90,7 +90,6 @@ class StudentController extends Controller
             $birthdayPassword = Carbon::parse($request->birthday)
                         ->format('dmY');
             $user = User::create([
-                'name' => $request->name,
                 'email' => $request->email,
                 'password' => $birthdayPassword,
                 'role' => 'student',

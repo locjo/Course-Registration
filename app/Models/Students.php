@@ -42,8 +42,12 @@ class Students extends Model
                     ->withPivot('status', 'checkin_time')
                     ->withTimestamps();
     }
-     public function attendances()
+    public function attendances()
     {
         return $this->hasMany(Attendances::class);
+    }
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollments::class);
     }
 }
