@@ -20,11 +20,6 @@
             <form method="GET" action="">
                 <div class="row mb-3">
 
-                    <!-- Từ ngày -->
-                    <div class="col-md-3">
-                        <input type="date" name="from_date" class="form-control">
-                    </div>
-
                     <!-- Tên lớp -->
                     <div class="col-md-3">
                         <select name="course_id" class="form-select">
@@ -36,8 +31,17 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="mt-3">
+                    <button class="btn btn-info text-white">
+                        🔍 Tìm kiếm
+                    </button>
+                    </form>
+                    <a href="{{route('student.enrollments.my')}}" class="btn btn-info">
+                        Danh sach hoc phan
+                    </a>
                 </div>
-            </form>
+            </div>
+            
         </div>
     </div>
 
@@ -62,22 +66,29 @@
                     @foreach($section_classes as  $section_class)
                     <tr class="text-center">
                         <td>{{ $section_class->id }}</td>
-                        <td>{{ $section_class->section_code }}</td>
+                        <td><a href="{{ route('student.section.students', $section_class->id) }}">
+                                {{  $section_class->section_code }}
+                            </a></td>
                         <td>{{ $section_class->course->name }}</td>
                         <td>{{ $section_class->start_date }}</td>
                         <td>{{ $section_class->end_date }}</td>
                         <td>{{ $section_class->lecturer->name }}</td>
                         <td>
                             @if(in_array($section_class->id, $enrolledIds))
-                                <button class="btn btn-secondary btn-sm" disabled>
-                                    Đã đăng ký
-                                </button>
+                                <form action="{{ route('student.enrollments.destroy', $section_class->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        Hủy học phần
+                                    </button>
+                                </form>
                             @else
                                 <form action="{{ route('student.enrollments.store') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="section_class_id" value="{{ $section_class->id }}">
                                     
-                                    <button type="submit"  onclick="alert('clicked')" class="btn btn-info btn-sm">
+                                    <button type="submit" class="btn btn-info btn-sm">
                                         Đăng ký
                                     </button>
                                 </form>

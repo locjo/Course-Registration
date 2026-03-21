@@ -33,4 +33,9 @@ class SectionClass extends Model
     {
         return $this->hasMany(Exams::class);
     }
+    
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollments::class, 'section_class_id');
+    }
 }

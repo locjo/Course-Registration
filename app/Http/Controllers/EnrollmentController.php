@@ -22,6 +22,7 @@ class EnrollmentController extends Controller
                 $query->where('course_id',$request->course_id);
             }
         $section_classes = $query->paginate(10);
+        
         $courses = Courses::all();
         $enrolledIds = Enrollments::where('student_id', Auth::id())
         ->pluck('section_class_id')
@@ -48,7 +49,6 @@ class EnrollmentController extends Controller
     public function store(EnrollmentRequest $request)
     {
         #Check đã đăng ký chưa
-        dd($request->all());
         $studentId = Auth::id();
         $sectionClassId = $request->section_class_id;
         $exist = Enrollments::where('student_id', $studentId)
@@ -75,22 +75,32 @@ class EnrollmentController extends Controller
             'status' => 'enrolled',
             'score' => null,
         ]);
-        return view('student.enrollments.index',compact(
-            'section_classes',
-            'courses',
-            'enrolledIds'))
-            ->with('success', 'dang ky hoc phan thành công');
+        return redirect()->route('student.enrollments.index')
+            ->with('success', 'Dang ky thành công'); 
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
+    public function studentsBySection($id)
+    {
+        
+        $students = Enrollments::with('student')
+            ->where('section_class_id', $id)
+            ->get();
+          
+        return view('student.enrollments.students', compact('students'));
+    }
+   public function myEnrollments()
+    {
+        $enrollments = Enrollments::with('section_class')
+            ->where('student_id', Auth::id()) // ✅ đúng chỗ này
+            ->get();
+
+        return view('student.enrollments.my', compact('enrollments'));
+    }
+        /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
@@ -103,14 +113,19 @@ class EnrollmentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($sectionClassId)
     {
-        //
+        Enrollments::where('student_id', Auth::id())      #xoa theo lop hoc phan va student
+            ->where('section_class_id', $sectionClassId)
+            ->delete();
+
+        return redirect()->route('student.enrollments.index')
+            ->with('success', 'Hủy học phần thành công');
     }
 }

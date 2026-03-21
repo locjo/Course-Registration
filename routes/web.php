@@ -101,5 +101,9 @@ Route::prefix('student')->name('student.')->group(function(){
 
     Route::resource('enrollments', EnrollmentController::class);
 
-    
+    Route::get('/my-enrollments', [EnrollmentController::class, 'myEnrollments'])
+    ->name('enrollments.my');
+
+    Route::get('section-classes/{id}/students', [EnrollmentController::class, 'studentsBySection'])
+    ->name('enrollments.students');
 });

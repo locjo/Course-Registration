@@ -65,6 +65,8 @@ class SectionClassController extends Controller
             ->with('success', 'Cập nhật học phần thành công');
     }
 
+  
+
     /**
      * Remove the specified resource from storage.
      */

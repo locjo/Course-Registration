@@ -22,10 +22,9 @@ class EnrollmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'student_id' => 'required|exists:students,id',
+            
             'section_class_id' => 'required|exists:section_classes,id',
-            'status' => 'required|in:enrolled,dropped',
-            'score' => 'required|integer|nullable'
+          
         ];
     }
 }
