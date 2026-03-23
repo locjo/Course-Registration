@@ -17,6 +17,7 @@ use App\Http\Controllers\SectionClassController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\StudentExamController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -106,4 +107,8 @@ Route::prefix('student')->name('student.')->group(function(){
 
     Route::get('section-classes/{id}/students', [EnrollmentController::class, 'studentsBySection'])
     ->name('enrollments.students');
+
+    Route::resource('exams', StudentExamController::class);
+
+    Route::post('exams/{exam}/submit', [StudentExamController::class, 'submit'])->name('exams.submit');
 });

@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('exams', function (Blueprint $table) {
-            $table->foreignId('section_class_id')
-                ->constrained('section_classes')
-                ->cascadeOnDelete();
+        Schema::table('results', function (Blueprint $table) {
+            //
         });
     }
 
@@ -23,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('exam', function (Blueprint $table) {
+        Schema::table('results', function (Blueprint $table) {
             //
         });
     }

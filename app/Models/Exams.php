@@ -11,7 +11,9 @@ class Exams extends Model
         'id',
         'exam_title',
         'time_limit',
-        'section_class_id'
+        'section_class_id',
+        'start_time',
+        'end_time'
     ];
 
     public function questions() {
@@ -21,4 +23,5 @@ class Exams extends Model
     {
         return $this->belongsTo(SectionClass::class);
     }
+    
 }
