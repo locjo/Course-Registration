@@ -12,12 +12,17 @@
 
                         {{-- Icon + trạng thái --}}
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="file-icon">
-                                📄
-                            </div>
+                            
 
-                            {{ now() }} <br>
-                            {{ $exam->start_time }} <br>
+                             @if(isset($results[$exam->id]))
+                                <span class="text-success fw-bold">
+                                    ✅ Đã làm - Điểm: {{ $results[$exam->id] }}
+                                </span>
+                            @else
+                                <span class="text-danger">
+                                    ❌ Chưa làm
+                                </span>
+                            @endif
                             @if(now()->lt($exam->start_time))
                                 <span class="badge bg-warning text-dark">Sắp diễn ra</span>
                             @elseif(now()->between($exam->start_time, $exam->end_time))
@@ -29,7 +34,7 @@
 
                         {{-- Tiêu đề --}}
                         <h5 class="fw-bold mb-3">
-                            {{ $exam->title }}
+                            {{ $exam->exam_title }}
                         </h5>
 
                         {{-- Thời gian --}}
@@ -45,12 +50,29 @@
                         </div>
 
                         {{-- Button --}}
-                        <div class="mt-3 text-end">
-                            <a href="{{route('student.exams.show',$exam->id)}}" 
-                               class="btn btn-success btn-sm rounded-pill px-3">
+                        @if(now()->lt($exam->start_time))
+                                <div class="mt-3 text-end">
+                            <a href="#" 
+                               class="btn btn-success btn-sm rounded-pill px-3" @disabled(true)>
                                 Xem chi tiết
                             </a>
                         </div>
+                            @elseif(now()->between($exam->start_time, $exam->end_time))
+                                <div class="mt-3 text-end">
+                                    <a href="{{route('student.exams.show',$exam->id)}}" 
+                                    class="btn btn-success btn-sm rounded-pill px-3">
+                                        Xem chi tiết
+                                    </a>
+                                </div>
+                            @else
+                                <div class="mt-3 text-end">
+                                    <a href="#" 
+                                    class="btn btn-success btn-sm rounded-pill px-3" style="opacity: 1">
+                                        Xem chi tiết
+                                    </a>
+                                </div>
+                            @endif
+                        
 
                     </div>
                 </div>

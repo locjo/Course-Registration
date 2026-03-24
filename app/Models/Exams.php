@@ -23,5 +23,8 @@ class Exams extends Model
     {
         return $this->belongsTo(SectionClass::class);
     }
-    
+    public function results()
+    {
+        return $this->hasMany(Results::class, 'exam_id');
+    }
 }

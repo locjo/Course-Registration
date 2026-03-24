@@ -50,4 +50,8 @@ class Students extends Model
     {
         return $this->hasMany(Enrollments::class);
     }
+     public function results()
+    {
+        return $this->hasMany(Results::class, 'student_id');
+    }
 }

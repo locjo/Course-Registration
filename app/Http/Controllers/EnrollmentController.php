@@ -25,8 +25,8 @@ class EnrollmentController extends Controller
         
         $courses = Courses::all();
         $enrolledIds = Enrollments::where('student_id', Auth::id())
-        ->pluck('section_class_id')
-        ->toArray();
+            ->pluck('section_class_id')
+            ->toArray();
         
 
 

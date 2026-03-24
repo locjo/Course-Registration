@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('results', function (Blueprint $table) {
-            //
+            $table->foreignId('student_id')
+                  ->constrained('students')
+                  ->cascadeOnDelete();
+            $table->foreignId('exam_id')
+                  ->constrained('exams')
+                  ->cascadeOnDelete();
+            $table->double('score');
+            $table->timestamps();
         });
     }
 
@@ -22,7 +29,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('results', function (Blueprint $table) {
-            //
+            
         });
     }
 };

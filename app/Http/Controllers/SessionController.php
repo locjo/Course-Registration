@@ -11,6 +11,7 @@ use App\Models\SectionClass;
 use App\Models\Sessions;
 use App\Models\Students;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 
@@ -70,7 +71,7 @@ class SessionController extends Controller
             
             'section_class_id'      => $request->section_class_id,
             'session_date'    => str_replace('T',' ',$request->session_date),
-            'lecturer_id'    => auth()->id()
+            'lecturer_id'    => Auth::id()
         ]);
 
         return redirect()

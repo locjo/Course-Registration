@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\QuestionRequest;
 use App\Models\Exams;
 use App\Models\Results;
+use App\Models\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,10 +16,14 @@ class StudentExamController extends Controller
      */
      public function index()
     {
+        $student = auth()->user()->student;
         $exams = Exams::whereHas('section_class.enrollments', function ($query){
             $query->where('student_id', Auth::id());
         })->get();
-        return view('student.exams.index', compact('exams'));
+        $results = Results::where('student_id', $student->id)
+        ->pluck('score', 'exam_id') // key = exam_id
+        ->toArray();
+        return view('student.exams.index', compact('exams', 'results'));
     }
 
 
@@ -45,20 +50,33 @@ class StudentExamController extends Controller
     {
         $exam = Exams::with('questions')->findOrFail($id);
 
-        return view('student.exams.show', compact('exam'));
+        $student = auth()->user()->student;
+
+        $exists = Results::where('student_id', $student->id)
+            ->where('exam_id', $id)
+            ->exists();
+        if ($exists){
+                return redirect()
+                    ->route('student.exams.index')
+                    ->with('error', 'Bạn đã làm bài này rồi');
+        }
+
+
+        return view('student.exams.show', compact('exam', 'exists'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
 
-    public function submit(QuestionRequest $request, $id)
+    public function submit(Request $request, $id)
     {
+        
         $exam = Exams::with('questions')->findOrFail($id);
-
+        $student = Students::where('user_id', Auth::id())->first();
         $score = 0;
         $total = $exam->questions->count();
-
+        
         foreach ($exam->questions as $question) {
             $userAnswer = $request->answers[$question->id] ?? null;
 
@@ -67,18 +85,28 @@ class StudentExamController extends Controller
             }
         }
         Results::create([
-            'student_id' => Auth::id(),
+            'student_id' => $student->id,
             'exam_id' => $exam->id,
             'score' => $score,
         ]);
 
-        return view('student.exams.submit', compact('score', 'total'));
+        return redirect()
+            ->route('student.exams.result', $exam->id)
+            ->with([
+                'score' => $score,
+                'total' => $total
+            ]);
     }
-    public function edit(string $id)
+    public function result($id)
     {
-        //
-    }
+        $student = auth()->user()->student;
 
+        $result = Results::where('student_id', $student->id)
+            ->where('exam_id', $id)
+            ->first();
+
+        return view('student.exams.result', compact('result'));
+    }
     /**
      * Update the specified resource in storage.
      */

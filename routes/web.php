@@ -13,6 +13,7 @@ use App\Http\Controllers\LecturerDashboardController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SectionClassController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
@@ -93,6 +94,8 @@ Route::prefix('lecturer')->name('lecturer.')->group(function(){
     Route::resource('exams', ExamController::class);
 
     Route::resource('exams.questions', QuestionController::class);
+    
+    Route::resource('scores', ScoreController::class);
 
     
 });
@@ -110,5 +113,9 @@ Route::prefix('student')->name('student.')->group(function(){
 
     Route::resource('exams', StudentExamController::class);
 
-    Route::post('exams/{exam}/submit', [StudentExamController::class, 'submit'])->name('exams.submit');
+    Route::post('exams/{exam}/submit', [StudentExamController::class, 'submit'])
+    ->name('exams.submit');
+
+    Route::get('exams/{exam}/result', [StudentExamController::class, 'result'])
+        ->name('exams.result');
 });
